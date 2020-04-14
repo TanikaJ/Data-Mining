@@ -37,4 +37,4 @@ sklearn==0.0
 ## To Run
 git clone https://github.com/TanikaJ/Data-Mining.git
 pip3 install -r Requirements
-python3 cricpred.py 
+python3 cricpred.ipynb 
