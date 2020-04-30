@@ -28,7 +28,7 @@ Thresold: 20
 ## Requirements
 numpy==1.16.2
 pandas==0.24.1
-python-dateutil==2.8.0
+python-dateutil==3.6
 pytz==2018.9
 scikit-learn==0.20.3
 scipy==1.2.1
@@ -37,4 +37,8 @@ sklearn==0.0
 ## To Run
 git clone https://github.com/TanikaJ/Data-Mining.git
 pip3 install -r Requirements
-python3 cricpred.ipynb 
+python3.6 cricpred.ipynb 
+## Input
+[103,0,13,50,50]
+## Output
+Prediction Score : [180.53]
