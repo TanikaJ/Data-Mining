@@ -40,7 +40,7 @@ sklearn==0.0
 flask
 
 ## To Run
-git clone https://github.com/KeyaShukla/Data-Mining
+git clone https://github.com/TanikaJ/Data-Mining
 pip3 install -r Requirements
 pip install pandas
 pip install flask
