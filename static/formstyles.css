@@ -1,0 +1,28 @@
+/* body{
+  padding: 3% 3%;
+} */
+
+h1{
+  color: #481380;
+  font-family: 'Montserrat';
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+input{
+  width: 30%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+}
+
+h4{
+  color: #481380;
+  font-family: 'Montserrat';
+  text-decoration: underline;
+  padding-top: 2%;
+}
+
+button{
+  margin-left: 10%;
+}
