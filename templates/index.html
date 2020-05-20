@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Score Predictor</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,600,700&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <!-- CSS Stylesheets -->
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="formstyles.css">
+
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/3d569620d3.js" crossorigin="anonymous"></script>
+
+
+    <!-- Bootstrap Scripts -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="top-navbar">
+        <div class="hamburger">
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+
+        <div class="top-menu">
+          <div class="logo">Score Predictor</div>
+          <ul>
+            <li><a href="#"><i class="fas fa-bell"></i></a></li>
+            <li><a href="#"><i class="fas fa-search"></i></a></li>
+            <li><a href="#"><i class="fas fa-user"></i></a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="side-bar">
+        <ul>
+          <li onclick=openPage('nav1')><a>
+            <span class="icon">
+              <i class="fas fa-calculator"></i>
+            </span>
+            <span class="title">Predictor Form</span>
+          </a></li>
+          <li><a href="https://docs.google.com/document/d/1phn0jl1WGJIk_j0_NN9nqBgQnCAvsy3PgYNF40IDwoQ/edit?usp=sharing">
+            <span class="icon">
+              <i class="fas fa-file-alt"></i>
+            </span>
+            <span class="title">Report</span>
+          </a></li>
+          <li><a href="https://www.slideshare.net/secret/znGg13kx5UPooU">
+            <span class="icon">
+              <i class="fas fa-file-powerpoint"></i>
+            </span>
+            <span class="title">Presentation</span>
+          </a></li>
+        </ul>
+
+      </div>
+
+      <script type="text/javascript">
+        function openPage(id){
+          var navs=["nav1","nav2","nav3"]
+          navs.forEach(e=>{
+            if(e===id){
+              document.getElementById(e).style.display="block"
+            } else{
+              document.getElementById(e).style.display="none"
+            }
+          })
+        }
+      </script>
+
+      <div class="main-container">
+        <div class="item">
+          Click on the 'Predictor Form' menu item to be transported to a form where you can fill all the required details and obtain the result.
+        </div>
+
+        <div class="item">
+          Click on the 'Report' menu item to obtain the link to the project report.
+        </div>
+
+        <div class="item">
+          Click on the 'Presentation' menu item to obtain the link to the presentation.
+        </div>
+
+        <div class="item" id="nav1">
+          <h1>Fill out details</h1>
+          <div id="form-cont">
+            <h4>Runs</h4>
+            <input name="runs" type="text" placeholder="Runs" />
+            <h4>Wickets</h4>
+            <input name="wickets" type="text" placeholder="Wickets" />
+            <h4>Overs</h4>
+            <input name="overs" type="text" placeholder="Overs" />
+            <h4>Striker</h4>
+            <input name="striker" type="text" placeholder="Striker" />
+            <h4>Non-striker</h4>
+            <input name="non-striker" type="text" placeholder="Non-striker" />
+
+            <button class="btn btn-lg btn-light btn-outline " onclick="handleFormSubmit()"> Submit </button>
+          </div>
+          <h4>Output</h4>
+          <input type="text"  id="total"/>
+
+          <script type="text/javascript">
+            function handleFormSubmit(argument) {
+
+              var data = {}
+
+              var d = document.getElementById('form-cont')
+
+              // inputElems is array of ref to each input field
+            var inputElems = d.querySelectorAll('input')
+
+            inputElems.forEach( e => {
+              data[e.name] = e.value
+            })
+
+            // console.log(data)
+
+            fetch('/predict', {
+              method: 'POST', // or 'PUT'
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(data),
+            })
+            .then((response) => response.json())
+            .then((data) => {
+              console.log('Success:', data);
+              var resultBox = document.getElementById('total')
+
+              resultBox.value = data.result
+              // resultBox.innerHTML = data.result
+              // resultBox.style.color = 'black'
+
+              // d.appendChild(resultBox)
+            })
+            .catch((error) => {
+              console.error('Error:', error);
+            });
+            }
+          </script>
+        </div>
+
+        <div class="item" id="nav2">
+          <iframe src="https://docs.google.com/document/d/e/2PACX-1vSHCcQ52Lz1u4rl2pvI8-HTOrgNgZJNaS232tXWEnTcRyLzjBZeftEKadxROBA00Q/pub?embedded=true"></iframe>
+        </div>
+
+        <div class="item" id="nav3">
+          <iframe src="//www.slideshare.net/slideshow/embed_code/key/znGg13kx5UPooU" width="595" height="485" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="//www.slideshare.net/secret/znGg13kx5UPooU" title="Cricket score and winner predictor" target="_blank">Cricket score and winner predictor</a> </strong> from <strong><a href="https://www.slideshare.net/KeyaShukla3" target="_blank">KeyaShukla3</a></strong> </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </body>
+</html>
+
+<!-- ranodom comment jjhghdcdfgnhj -->
+<!-- vtftyunhniuhihinuh -->
